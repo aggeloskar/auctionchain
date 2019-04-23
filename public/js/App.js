@@ -51,6 +51,6 @@ App = {
 
 }
 
-$(() => {
-    $(window).on('load', App.load());
-})
+$(document).ready(function () {
+    App.load();
+});
