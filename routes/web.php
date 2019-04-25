@@ -35,3 +35,8 @@ Route::post('newauction', 'ItemController@store');
 
 Route::post('items/placebid', 'ItemController@placebid');
 
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
