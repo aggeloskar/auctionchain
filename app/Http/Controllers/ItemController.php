@@ -45,9 +45,15 @@ class ItemController extends Controller
 
         $item = new Item();
         $item->title = request('title');
+        $item->description = request('description');
         $item->starting_price = request('starting_price');
+        $item->currency = request('currency');
+        $item->reserve_price = request('reservePrice');
+        $item->startDate = date('Y-m-d H:i:s'); //TODO
+        $item->duration = request('duration');
+        $item->endDate = date('Y-m-d H:i:s', strtotime($item->startDate . ' + ' . request('duration') . ' days'));
         $item->seller = Auth::user()->name;
-        $item->seller_id = Auth::user()->id;
+        //$item->seller_id = Auth::user()->id;
         $item->save();
         return back()->with('success', 'You have created a new auction!'); ;
     }
@@ -120,6 +126,12 @@ class ItemController extends Controller
     {
         $items = Item::orderBy('created_at','desc')->take(4)->get();
         return view('index')->with('items', $items);
+    }
+
+    public function myauctions()
+    {
+        $items = Item::orderBy('created_at','desc')->where('seller',Auth::user()->name)->paginate(10);
+        return view('myauctions')->with('items', $items);
     }
 }
 

@@ -16,10 +16,15 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->text('description');
             $table->string('seller');
             $table->float('starting_price');
-            $table->float('highest_bid');
-            $table->text('highest_bidder');
+            $table->float('reserve_price');
+            $table->string('currency');
+            $table->dateTime('startDate');
+            $table->integer('duration');
+            $table->float('highest_bid')->nullable();
+            $table->text('highest_bidder')->nullable();
             $table->timestamps();
         });
     }

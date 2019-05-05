@@ -21,9 +21,34 @@
         </div>
 
         <div class="form-group row">
+            <label for="description" class="col-md-4 col-form-label text-md-right">Item Description</label>
+            
+            <div class="col-md-6">
+                <input id="description" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" required>
+
+                @if ($errors->has('description'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('description') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="itemPhoto" class="col-md-4 col-form-label text-md-right">Item Photo</label>
+            
+            <div class="col-md-6">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="itemPhoto">
+                    <label class="custom-file-label" for="itemPhoto">Choose file</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label for="starting_price" class="col-md-4 col-form-label text-md-right">Starting Price</label>
 
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <input id="starting_price" type="text" class="form-control{{ $errors->has('starting_price') ? ' is-invalid' : '' }}" name="starting_price" required>
 
                 @if ($errors->has('starting_price'))
@@ -32,7 +57,51 @@
                     </span>
                 @endif
             </div>
+            <div class="col-md-3">
+                <select class="form-control" id="currency" name="currency" required>
+                    <option selected disabled value="">Select Currency</option>
+                    <option value="ETH">ETH</option>
+                    <option value="EUR">EUR</option>
+                </select>
+            </div>
         </div>
+
+        <div class="form-group row">
+            <label for="reservePrice" class="col-md-4 col-form-label text-md-right">Reserve Price</label>
+            
+            <div class="col-md-6">
+                <input id="reservePrice" type="text" class="form-control{{ $errors->has('reservePrice') ? ' is-invalid' : '' }}" name="reservePrice" required>
+
+                @if ($errors->has('reservePrice'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('reservePrice') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="startDate" class="col-md-4 col-form-label text-md-right">Start Date</label>
+            
+            <div class="col-md-3">
+                <input id="startDate" type="text" class="form-control{{ $errors->has('startDate') ? ' is-invalid' : '' }}" name="startDate" disabled>
+
+                @if ($errors->has('startDate'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('startDate') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" id="duration" name="duration" required>
+                    <option selected disabled value="">Duration</option>
+                    <option value="1">1 day</option>
+                    <option value="3">3 days</option>
+                    <option value="7">7 days</option>
+                </select>
+            </div>
+        </div>
+   
 
         <div class="form-group row mb-0">
             <div class="col-md-8 offset-md-4">

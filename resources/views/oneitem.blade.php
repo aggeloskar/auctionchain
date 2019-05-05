@@ -12,7 +12,7 @@
                 <dd class="col-sm-8">{{$item->starting_price}} ETH </dd>
 
                 <dt class="col-sm-4">Highest Bid</dt>
-                <dd class="col-sm-8"> {{ $item->highest_bid ? $item->highest_bid . ' ETH' : 'No bids yet' }} </dd>
+                <dd class="col-sm-8"> {{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }} </dd>
 
                 <dt class="col-sm-4">Highest Bidder</dt>
                 <dd class="col-sm-8"> {{ $item->highest_bidder ? $item->highest_bidder : 'No bids yet' }} </dd>
@@ -21,7 +21,13 @@
                 <dd class="col-sm-8">  {{ $item->seller }} </dd>
 
                 <dt class="col-sm-4">Description</dt>
-                <dd class="col-sm-8">Simentum nibh, ut res massa justo sit amet risus. Sed dapibus sodales lectus, nec pulvinar dui aliquam non. </dd>
+                <dd class="col-sm-8"> {{ $item->description }} </dd>
+
+                <dt class="col-sm-4">Start date</dt>
+                <dd class="col-sm-8"> {{ $item->startDate }} </dd>
+
+                <dt class="col-sm-4">Duration</dt>
+                <dd class="col-sm-8"> {{ $item->duration }} Days</dd>
                 </dd>
             </dl> 
         </div>

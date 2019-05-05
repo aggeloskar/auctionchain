@@ -10,7 +10,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Starting Price</th>
                     <th scope="col">Highest Bid</th>
-                    <th scope="col">Time Left</th>
+                    <th scope="col">End Date</th>
                     <th scope="col">Seller</th>
                     </tr>
                 </thead>
@@ -19,8 +19,8 @@
                     <tr>
                     <td><a href="/items/{{$item->id}}">{{$item->title}}</a></th>
                     <td>{{ $item->starting_price }} ETH </td>
-                    <td>{{ $item->highest_bid ? $item->highest_bid . ' ETH' : 'No bids yet' }}</td>
-                    <td>{{$item->created_at}}</td>
+                    <td>{{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }}</td>
+                    <td>{{$item->endDate}}</td>
                     <td>{{$item->seller}}</td>
                     </tr>
                 @endforeach
