@@ -25,6 +25,8 @@ Route::get('about', function(){
     return view('about');
 });
 
+Route::get('myauctions', 'ItemController@myauctions')->middleware('auth');
+
 Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
