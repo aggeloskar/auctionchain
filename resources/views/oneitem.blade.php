@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <dl class="row">
                 <dt class="col-sm-4">Starting Price</dt>
-                <dd class="col-sm-8">{{$item->starting_price}} ETH </dd>
+                <dd class="col-sm-8">{{$item->starting_price . ' ' . $item->currency}} </dd>
 
                 <dt class="col-sm-4">Highest Bid</dt>
                 <dd class="col-sm-8"> {{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }} </dd>
@@ -33,7 +33,14 @@
         </div>
         <div class="col-md-3">
             <div class="alert alert-info" role="alert">
-                <strong>Time Left: </strong> 1 day
+                <strong>Time Left: </strong> 
+                @php
+                $datetime1 = new DateTime();
+                    $datetime2 = new DateTime($item->endDate);
+                    $interval = $datetime1->diff($datetime2);
+                    $elapsed = $interval->format('%a days %h hours %i minutes %s seconds');
+                    echo $elapsed; 
+                @endphp
             </div>
             <form method="POST" action="placebid">
             @csrf

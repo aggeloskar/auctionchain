@@ -18,7 +18,7 @@
                 @foreach($items as $item)
                     <tr>
                     <td><a href="/items/{{$item->id}}">{{$item->title}}</a></th>
-                    <td>{{ $item->starting_price }} ETH </td>
+                    <td>{{ $item->starting_price . ' ' . $item->currency }}  </td>
                     <td>{{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }}</td>
                     <td>{{$item->endDate}}</td>
                     <td>{{$item->seller}}</td>
