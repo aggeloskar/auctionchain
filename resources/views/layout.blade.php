@@ -22,7 +22,7 @@
     @include('navbar')
     
     <!-- Main content -->
-    <div class="container">
+    <div id="app" class="container">
     @yield('content')
     </div>  
 
@@ -34,7 +34,9 @@
     <script src="{{ URL::asset('js/popper.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('js/holder.min.js') }}"></script>
-    <script src="{{ URL::asset('js/App.js') }}"></script>
+    <script src="{{ URL::asset('js/scripts.js') }}"></script>
+    <script src="{{ URL::asset('js/app.js') }}"></script>
+
 
   </body>
 </html>
