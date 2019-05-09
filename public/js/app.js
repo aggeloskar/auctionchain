@@ -1772,8 +1772,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["startDate", "duration"],
+  data: function data() {
+    return {
+      test: null
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("https://jsonplaceholder.typicode.com/todos/1").then(function (response) {
+      return _this.test = response.data.title;
+    });
+  },
   methods: {
     findEndDate: function findEndDate() {
       return this.startDate + this.duration;
@@ -37085,7 +37098,13 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "alert alert-info", attrs: { role: "alert" } }, [
       _c("strong", [_vm._v("Time Left:")]),
-      _vm._v("\n    " + _vm._s(_vm.findEndDate()) + "\n  ")
+      _vm._v(
+        "\n    " +
+          _vm._s(_vm.findEndDate()) +
+          "\n    " +
+          _vm._s(_vm.test) +
+          "\n  "
+      )
     ])
   ])
 }
