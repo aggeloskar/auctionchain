@@ -133,5 +133,10 @@ class ItemController extends Controller
         $items = Item::orderBy('created_at','desc')->where('seller',Auth::user()->name)->paginate(10);
         return view('myauctions')->with('items', $items);
     }
-}
+
+    public function test()
+    {
+        return ["name"=>"Hi"];
+    }
+   }
 

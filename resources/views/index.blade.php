@@ -5,7 +5,6 @@
       <h1 class="display-4">Blockchain auctions</h1>
       <p class="lead">Decentralized auctions with key benefits. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at sollicitudin orci. Ut auctor, nunc id mattis faucibus, est ante fermentum turpis, et porta ligula nulla ut justo. </p>
     </div>
-    <example-component></example-component>
 
 
     <div class="container">

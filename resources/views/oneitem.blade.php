@@ -32,6 +32,11 @@
             </dl> 
         </div>
         <div class="col-md-3">
+                <time-left
+                    :start-date="'{{$item->startDate}}'"
+                    :duration="'{{$item->duration}}'"
+                ></time-left>
+
             <div class="alert alert-info" role="alert">
                 <strong>Time Left: </strong> 
                 @php
