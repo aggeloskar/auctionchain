@@ -33,6 +33,7 @@
         </div>
         <div class="col-md-3">
                 <time-left
+                    :id="'{{$item->id}}'"
                     :start-date="'{{$item->startDate}}'"
                     :duration="'{{$item->duration}}'"
                 ></time-left>

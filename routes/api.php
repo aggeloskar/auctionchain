@@ -18,3 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/test', 'ItemController@test');
+
+Route::get('/test/{id}', 'ItemController@onetest');

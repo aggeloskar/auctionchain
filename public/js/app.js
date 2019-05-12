@@ -1773,23 +1773,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["startDate", "duration"],
+  props: ["id", "startDate", "duration"],
   data: function data() {
     return {
-      test: null
+      item: []
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("https://jsonplaceholder.typicode.com/todos/1").then(function (response) {
-      return _this.test = response.data.title;
+    console.log("moutned");
+    axios.get("/api/test/" + this.id).then(function (response) {
+      _this.item = response.data;
     });
   },
   methods: {
     findEndDate: function findEndDate() {
-      return this.startDate + this.duration;
+      return this.item.highest_bid;
     }
   }
 });
@@ -37097,18 +37106,46 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "alert alert-info", attrs: { role: "alert" } }, [
-      _c("strong", [_vm._v("Time Left:")]),
+      _c("strong", [_vm._v("Current Bid:")]),
+      _vm._v("\n    " + _vm._s(_vm.findEndDate()) + "\n  ")
+    ]),
+    _vm._v(" "),
+    _c("div", [
       _vm._v(
-        "\n    " +
-          _vm._s(_vm.findEndDate()) +
-          "\n    " +
-          _vm._s(_vm.test) +
-          "\n  "
+        "Desc: " + _vm._s(_vm.item.description) + " " + _vm._s(_vm.item.id)
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _vm._m(0)
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { attrs: { method: "POST", action: "placebid" } }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+          _vm._v("New Bid")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", name: "bid" }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn-block", attrs: { type: "submit" } },
+        [_vm._v("Place bid")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
