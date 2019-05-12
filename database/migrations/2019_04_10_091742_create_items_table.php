@@ -15,18 +15,23 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('seller_id')->unsigned();
             $table->string('title');
             $table->text('description');
-            $table->string('seller');
-            $table->float('starting_price');
-            $table->float('reserve_price');
+            $table->string('image_path')->nullable();;
+            $table->float('starting_price')->unsigned();
+            $table->float('reserve_price')->unsigned();
             $table->string('currency');
-            $table->dateTime('startDate');
-            $table->integer('duration');
-            $table->float('highest_bid')->nullable();
-            $table->text('highest_bidder')->nullable();
+            $table->date('end_date');
+            $table->string('status')->default('active');
+
             $table->timestamps();
         });
+    
+       /*  Schema::table('items', function($table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+ */
     }
 
     /**
