@@ -32,7 +32,7 @@
     @include('footer')
 
     <!-- Scripts: Placed at the end of the document so the pages load faster -->
-
+    <script src="{{ URL::asset('https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js') }} "></script>
     <script src="{{ URL::asset('js/scripts.js') }}"></script>
     <script src="{{ URL::asset('js/app.js') }}"></script>
 
