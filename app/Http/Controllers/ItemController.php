@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Item;
 use Carbon\Carbon;
+use App\Bid;
+use App\User;
 use Auth;
 use Image;
 
@@ -41,7 +43,8 @@ class ItemController extends Controller
     {
         $data = request()->validate([
             'title' => 'required',
-            'starting_price' => 'required|numeric'
+            'starting_price' => 'required|numeric',
+            'endDate' => 'required'
 
         ]);
 
@@ -82,7 +85,15 @@ class ItemController extends Controller
     public function show($id)
     {
         $item = Item::find($id);
-        return view('oneitem')->with('item', $item);
+        $highest_bid = Bid::where('item_id', 'like', $id)->orderBy('price','desc')->first();
+        if ($highest_bid){
+            $highest_bidder = User::find($highest_bid->user_id);
+            $highest_bidder = $highest_bidder->name;
+        }
+        else{
+            $highest_bidder = "No bids yet";
+        }
+        return view('oneitem')->with('item', $item)->with('highest_bidder', $highest_bidder);
     }
 
     /**
@@ -119,9 +130,17 @@ class ItemController extends Controller
         //
     }
 
-    public function placebid(Request $request)
+    public function placebid(Request $request, Item $item)
     {   
-        $id = request('id');
+        Bid::create([
+            'user_id' => Auth::id(),
+            'item_id' => $request->id,
+            'price' => $request->bid,
+        ]);
+        return redirect()->back();
+
+
+       /*  $id = request('id');
         $item = Item::find($id);
         $bid = request('bid');
         if ($bid > $item->highest_bid && $bid > $item->starting_price){
@@ -132,7 +151,7 @@ class ItemController extends Controller
         }
         else {
             return back(); 
-        }
+        } */
     /***** TODO: Auto-refresh page on every bid *****/
         
     }
@@ -145,7 +164,7 @@ class ItemController extends Controller
 
     public function myauctions()
     {
-        $items = Item::orderBy('created_at','desc')->where('seller',Auth::user()->name)->paginate(10);
+        $items = Item::orderBy('created_at','desc')->where('seller_id',Auth::user()->id)->paginate(10);
         return view('myauctions')->with('items', $items);
     }
 

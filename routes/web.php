@@ -33,6 +33,8 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::resource('items', 'ItemController')->middleware('auth');
 
+Route::get('profile', 'HomeController@profile')->name('profile')->middleware('auth');
+
 Route::post('newauction', 'ItemController@store');
 
 Route::post('items/placebid', 'ItemController@placebid');

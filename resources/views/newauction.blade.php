@@ -84,20 +84,20 @@
             <label for="endDate" class="col-md-4 col-form-label text-md-right">End Date</label>
             
             <div class="col-md-3">
-                <input id="endDate" type="text" class="form-control{{ $errors->has('endDate') ? ' is-invalid' : '' }}" name="endDate" maxlength="8" placeholder="DD/MM/YY">
+                <input id="endDate" type="text" class="form-control{{ $errors->has('endDate') ? ' is-invalid' : '' }}" name="endDate" maxlength="8" placeholder="DD/MM/YY" required>
 
-                @if ($errors->has('startDate'))
+                @if ($errors->has('endDate'))
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('startDate') }}</strong>
+                        <strong>{{ $errors->first('endDate') }}</strong>
                     </span>
                 @endif
             </div>
             <div class="col-md-3">
-                <select class="form-control" id="duration" name="duration" required>
-                    <option selected disabled value="">Duration</option>
-                    <option value="1">1 day</option>
-                    <option value="3">3 days</option>
-                    <option value="7">7 days</option>
+                <select class="form-control" id="type" name="type">
+                    <option selected disabled value="">Auction type</option>
+                    <option value="ETH">Ethereum only</option>
+                    <option value="EUR">Credit card only</option>
+                    <option value="Other" disabled>Other</option>
                 </select>
             </div>
         </div>

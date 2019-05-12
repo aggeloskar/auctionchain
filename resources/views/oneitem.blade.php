@@ -2,6 +2,11 @@
 
 @section('content')
     <h1 class="display-4">{{$item->title}}</h1>
+    @if($highest_bidder == Auth::user()->name && $item->status == 'sold')
+    <div class="alert alert-success">
+        You have won this auction! Click <a href="#" class="alert-link">here</a> to continiue to payment.
+    </div>
+    @endif
     <div class="row">
         <div class="col-md-3">
             <img src="https://dummyimage.com/200x250/005f96/ffffff&text=Item+image">
@@ -15,39 +20,37 @@
                 <dd class="col-sm-8"> {{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }} </dd>
 
                 <dt class="col-sm-4">Highest Bidder</dt>
-                <dd class="col-sm-8"> {{ $item->highest_bidder ? $item->highest_bidder : 'No bids yet' }} </dd>
+                <dd class="col-sm-8"> {{ $highest_bidder }} </dd>
 
                 <dt class="col-sm-4">Seller</dt>
-                <dd class="col-sm-8">  {{ $item->seller }} </dd>
+                <dd class="col-sm-8">  {{ $item->seller_id }} </dd>
 
                 <dt class="col-sm-4">Description</dt>
                 <dd class="col-sm-8"> {{ $item->description }} </dd>
 
-                <dt class="col-sm-4">Start date</dt>
-                <dd class="col-sm-8"> {{ $item->startDate }} </dd>
+                <dt class="col-sm-4">End date</dt>
+                <dd class="col-sm-8"> {{ formatDate($item->end_date) }} </dd>
 
-                <dt class="col-sm-4">Duration</dt>
-                <dd class="col-sm-8"> {{ $item->duration }} Days</dd>
                 </dd>
-            </dl> 
+            </dl>
+            
+            @if(count($item->bids))
+                    <ol>
+                        @foreach($item->bids as $bid)
+                            <li class="{{ $bid->user_id == Auth::id() ? 'you' : '' }}">
+                                € {{ ($bid->price) }}, {{ $bid->user->name }}, {{ formatDate($bid->created_at) }}
+                            </li>
+                        @endforeach
+                    </ol>
+                @else
+                    <p>No bids yet</p>
+                @endif 
         </div>
         <div class="col-md-3">
-                <time-left
-                    :id="'{{$item->id}}'"
-                    :start-date="'{{$item->startDate}}'"
-                    :duration="'{{$item->duration}}'"
-                ></time-left>
-
             <div class="alert alert-info" role="alert">
                 <strong>Time Left: </strong> 
-                @php
-                $datetime1 = new DateTime();
-                    $datetime2 = new DateTime($item->endDate);
-                    $interval = $datetime1->diff($datetime2);
-                    $elapsed = $interval->format('%a days %h hours %i minutes %s seconds');
-                    echo $elapsed; 
-                @endphp
             </div>
+
             <form method="POST" action="placebid">
             @csrf
                 <div class="form-group">

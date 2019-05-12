@@ -20,8 +20,8 @@
                     <td><a href="/items/{{$item->id}}">{{$item->title}}</a></th>
                     <td>{{ $item->starting_price }} ETH </td>
                     <td>{{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }}</td>
-                    <td>{{$item->endDate}}</td>
-                    <td>{{$item->seller}}</td>
+                    <td>{{ formatDate($item->end_date)}}</td>
+                    <td>{{ $item->seller_id }}</td>
                     </tr>
                 @endforeach
                 </tbody>
