@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Item;
+use Carbon\Carbon;
 use Auth;
+use Image;
 
 class ItemController extends Controller
 {
@@ -43,17 +45,30 @@ class ItemController extends Controller
 
         ]);
 
+        $endDate = Carbon::createFromFormat('d/m/y', $request->endDate);
+        $formattedEndDate = $endDate->format('Y-m-d');
+        
+        if( $request->hasFile('itemPhoto') && $request->itemPhoto->isValid() ) {
+            $imagePath = 'storage/uploads/images/' . $request->itemPhoto->hashName();
+
+            Image::make($request->image)->save($imagePath, $imageQuality);
+        }
+        else {
+            $imagePath = 'storage/uploads/images/default.png';
+
+        }
+        
+
         $item = new Item();
+        $item->seller_id = Auth::user()->id;
         $item->title = request('title');
         $item->description = request('description');
+        $item->image_path = $imagePath;
         $item->starting_price = request('starting_price');
         $item->currency = request('currency');
         $item->reserve_price = request('reservePrice');
-        $item->startDate = date('Y-m-d H:i:s'); //TODO
-        $item->duration = request('duration');
-        $item->endDate = date('Y-m-d H:i:s', strtotime($item->startDate . ' + ' . request('duration') . ' days'));
-        $item->seller = Auth::user()->name;
-        //$item->seller_id = Auth::user()->id;
+        $item->end_date = $formattedEndDate;
+        //$item->seller = Auth::user()->name;
         $item->save();
         return back()->with('success', 'You have created a new auction!'); ;
     }
@@ -136,7 +151,14 @@ class ItemController extends Controller
 
     public function test()
     {
-        return ["name"=>"Hi"];
+        return $item = Item::all();
+        ;
+    }
+
+    public function onetest($id)
+    {
+        return $item = Item::find($id);
+        ;
     }
    }
 

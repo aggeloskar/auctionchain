@@ -81,10 +81,10 @@
         </div>
 
         <div class="form-group row">
-            <label for="startDate" class="col-md-4 col-form-label text-md-right">Start Date</label>
+            <label for="endDate" class="col-md-4 col-form-label text-md-right">End Date</label>
             
             <div class="col-md-3">
-                <input id="startDate" type="text" class="form-control{{ $errors->has('startDate') ? ' is-invalid' : '' }}" name="startDate" disabled>
+                <input id="endDate" type="text" class="form-control{{ $errors->has('endDate') ? ' is-invalid' : '' }}" name="endDate" maxlength="8" placeholder="DD/MM/YY">
 
                 @if ($errors->has('startDate'))
                     <span class="invalid-feedback" role="alert">
