@@ -4,7 +4,7 @@
     <h1 class="display-4">{{$item->title}}</h1>
     @if($highest_bidder == Auth::user()->name && $item->status == 'sold')
     <div class="alert alert-success">
-        You have won this auction! Click <a href="#" class="alert-link">here</a> to continiue to payment.
+        You have won this auction! Click <a href="{{$item->id}}/pay" class="alert-link">here</a> to continiue to payment.
     </div>
     @endif
     <div class="row">

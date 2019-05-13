@@ -101,6 +101,19 @@
                 </select>
             </div>
         </div>
+        <div class="form-group row">
+            <label for="ethaddress" class="col-md-4 col-form-label text-md-right">ETH address</label>
+            
+            <div class="col-md-6">
+                <input id="ethaddress" type="text" class="form-control{{ $errors->has('ethaddress') ? ' is-invalid' : '' }}" name="ethaddress">
+
+                @if ($errors->has('ethaddress'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('ethaddress') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
    
 
         <div class="form-group row mb-0">

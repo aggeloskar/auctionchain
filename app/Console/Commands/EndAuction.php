@@ -44,7 +44,7 @@ class EndAuction extends Command
         $today = Carbon::now()->toDateString();
         $endedAuctionsUsers = [];
 
-        $endedAuctionsWithoutBids = Auction::where([['end_date', $today], ['status', 'active']]);
+        $endedAuctionsWithoutBids = Item::where([['end_date', $today], ['status', 'active']]);
         $endedAuctionsWithoutBids = $endedAuctionsWithoutBids->whereDoesntHave('bids')->get();
 
         foreach($endedAuctionsWithoutBids as $endedAuctionWithoutBids) {
@@ -52,7 +52,7 @@ class EndAuction extends Command
             $endedAuctionWithoutBids->save();
         }
 
-        $endedAuctions = Auction::where([['end_date', $today], ['status', 'active']]);
+        $endedAuctions = Item::where([['end_date', $today], ['status', 'active']]);
         $endedAuctions = $endedAuctions->whereHas('bids')->get();
 
         if(!$endedAuctions->isEmpty()) {
@@ -76,16 +76,17 @@ class EndAuction extends Command
                 $latestBidId = $endedAuctionsUser['latest_bid_id'];
 
                 $userName = User::find($userId)->name;
-                $auctionTitle = Auction::find($auctionId)->title;
+                $auctionTitle = Item::find($auctionId)->title;
                 $latestBidPrice = Bid::find($latestBidId)->price;
 
-                $highestBidId = Auction::find($auctionId)->bids->last()->id;
+                $highestBidId = Item::find($auctionId)->bids->last()->id;
 
                 if($latestBidId == $highestBidId) {
                     $hasHighestBid = true;
                 }
 
-                Mail::to(User::find($userId))->send(new AuctionEnded($userName, $auctionTitle, $latestBidPrice, $hasHighestBid));
+                echo("Ended auctions");
+                //Mail::to(User::find($userId))->send(new AuctionEnded($userName, $auctionTitle, $latestBidPrice, $hasHighestBid));
             }
         }
     }

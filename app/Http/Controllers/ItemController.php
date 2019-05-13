@@ -168,16 +168,16 @@ class ItemController extends Controller
         return view('myauctions')->with('items', $items);
     }
 
-    public function test()
+    public function past()
     {
-        return $item = Item::all();
-        ;
+        $items = Item::orderBy('created_at','desc')->where('status','sold')->paginate(10);
+        return view('auctions')->with('items', $items);
     }
 
-    public function onetest($id)
+    public function pay($id)
     {
-        return $item = Item::find($id);
-        ;
+        return view('payment');
+        
     }
    }
 

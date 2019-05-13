@@ -27,6 +27,8 @@ Route::get('about', function(){
 
 Route::get('myauctions', 'ItemController@myauctions')->middleware('auth');
 
+Route::get('pastauctions', 'ItemController@past')->middleware('auth');
+
 Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -39,7 +41,10 @@ Route::post('newauction', 'ItemController@store');
 
 Route::post('items/placebid', 'ItemController@placebid');
 
-
+Route::get('/items/{itemid}/pay', [
+    'middleware' => 'CheckUser::class',
+    'uses' => 'ItemController@pay'
+]);
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

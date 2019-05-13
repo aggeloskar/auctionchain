@@ -46,7 +46,7 @@ App = {
         // Set the current blockchain account
         App.account = web3.eth.accounts[0]
         $('#account').html(App.account)
-
+        $('#ethaddress').val(App.account);
     },
 
 }
