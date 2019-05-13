@@ -11,7 +11,7 @@
                     <th scope="col">Starting Price</th>
                     <th scope="col">Highest Bid</th>
                     <th scope="col">End Date</th>
-                    <th scope="col">Seller</th>
+                    <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,7 +21,7 @@
                     <td>{{ $item->starting_price . ' ' . $item->currency }}  </td>
                     <td>{{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }}</td>
                     <td>{{ formatDate($item->end_date)}}</td>
-                    <td>{{ $item->seller_id }}</td>
+                    <td>{{ $item->status }}</td>
                     </tr>
                 @endforeach
                 </tbody>

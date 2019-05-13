@@ -89,11 +89,16 @@ class ItemController extends Controller
         if ($highest_bid){
             $highest_bidder = User::find($highest_bid->user_id);
             $highest_bidder = $highest_bidder->name;
+            $highest_bid = $highest_bid->price . ' ' . $item->currency;
         }
         else{
             $highest_bidder = "No bids yet";
+            $highest_bid = "No bids yet";
         }
-        return view('oneitem')->with('item', $item)->with('highest_bidder', $highest_bidder);
+
+        $seller = User::where('id',$item->seller_id)->first();
+
+        return view('oneitem')->with('item', $item)->with('highest_bidder', $highest_bidder)->with('highest_bid', $highest_bid)->with('seller', $seller->name);
     }
 
     /**
@@ -132,27 +137,23 @@ class ItemController extends Controller
 
     public function placebid(Request $request, Item $item)
     {   
-        Bid::create([
-            'user_id' => Auth::id(),
-            'item_id' => $request->id,
-            'price' => $request->bid,
-        ]);
-        return redirect()->back();
-
-
-       /*  $id = request('id');
-        $item = Item::find($id);
         $bid = request('bid');
-        if ($bid > $item->highest_bid && $bid > $item->starting_price){
-            $item->highest_bid = $bid;
-            $item->highest_bidder = Auth::user()->name;
-            $item->save();
-            return back()->with('success', 'Bid placed successfully!'); 
+        $id = request('id');
+        $highest_bid = Bid::where('item_id', $id)->orderBy('price','desc')->first();
+        $highest_bid = $highest_bid->price;
+
+        if ($bid > $highest_bid && $bid > $item->starting_price){
+            Bid::create([
+                'user_id' => Auth::id(),
+                'item_id' => $request->id,
+                'price' => $request->bid,
+            ]);
+            return back()->with('success', 'Bid placed successfully!');
         }
         else {
-            return back(); 
-        } */
-    /***** TODO: Auto-refresh page on every bid *****/
+            return back()->with('fail', 'Select different amount'); 
+        } 
+    
         
     }
 
@@ -176,7 +177,12 @@ class ItemController extends Controller
 
     public function pay($id)
     {
-        return view('payment');
+        $item = Item::find($id);
+        $highest_bid = Bid::where('item_id', 'like', $id)->orderBy('price','desc')->first();
+        
+        $seller = User::where('id',$item->seller_id)->first();
+
+        return view('payment')->with('item', $item)->with('highest_bid', $highest_bid->price)->with('seller', $seller);
         
     }
    }

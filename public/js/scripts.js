@@ -20,6 +20,7 @@ App = {
                 // Request account access if needed
                 await ethereum.enable()
                 // Acccounts now exposed
+                initPayButton()
                 web3.eth.sendTransaction({
                     /* ... */
                 })
@@ -54,3 +55,23 @@ App = {
 $(document).ready(function () {
     App.load();
 });
+
+const initPayButton = () => {
+    $('.pay-button').click(() => {
+        // paymentAddress is where funds will be send to
+        const paymentAddress = '0x95Cc4c3938de9f3406E0F0F91Ca2667A7BfeE203'
+        const amountEth = 0.001
+        web3.eth.sendTransaction({
+            to: paymentAddress,
+            value: web3.toWei(amountEth, 'ether')
+        }, (err, transactionId) => {
+            if (err) {
+                console.log('Payment failed', err)
+                $('#status').html('Payment failed')
+            } else {
+                console.log('Payment successful', transactionId)
+                $('#status').html('Payment successful')
+            }
+        })
+    })
+}

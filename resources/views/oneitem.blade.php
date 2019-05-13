@@ -17,13 +17,13 @@
                 <dd class="col-sm-8">{{$item->starting_price . ' ' . $item->currency}} </dd>
 
                 <dt class="col-sm-4">Highest Bid</dt>
-                <dd class="col-sm-8"> {{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }} </dd>
+                <dd class="col-sm-8"> {{ $highest_bid }} </dd>
 
                 <dt class="col-sm-4">Highest Bidder</dt>
                 <dd class="col-sm-8"> {{ $highest_bidder }} </dd>
 
                 <dt class="col-sm-4">Seller</dt>
-                <dd class="col-sm-8">  {{ $item->seller_id }} </dd>
+                <dd class="col-sm-8">  {{ $seller }} </dd>
 
                 <dt class="col-sm-4">Description</dt>
                 <dd class="col-sm-8"> {{ $item->description }} </dd>
@@ -55,16 +55,25 @@
             @csrf
                 <div class="form-group">
                     <label for="exampleInputPassword1">New Bid</label>
-                    <input type="text" class="form-control" name="bid" placeholder="{{ $item-> highest_bid+0.1 }}">
+                    <input type="text" class="form-control" name="bid">
                     <input type="hidden" value="{{$item->id}}" name="id">
-                </div>  
-                <button type="submit" class="btn btn-primary btn-block">Place bid</button>
+                </div>
+                @if($item->status == 'active')  
+                    <button type="submit" class="btn btn-primary btn-block">Place bid</button>
+                @else
+                    <button type="submit" class="btn btn-primary btn-block" disabled>Place bid</button>
+                @endif
             </form>
             @if (\Session::has('success'))
-                    <br>
-                    <div class="alert alert-success">
-                        {!! \Session::get('success') !!}                        
-                    </div>
+                <br>
+                <div class="alert alert-success">
+                    {!! \Session::get('success') !!}                        
+                </div>
+            @elseif (\Session::has('fail'))
+                <br>
+                <div class="alert alert-danger">
+                    {!! \Session::get('fail') !!}                        
+                </div>
             @endif
         </div>
     </div>
