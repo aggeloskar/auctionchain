@@ -28,6 +28,7 @@
                     <button class="btn btn-primary pay-button" disabled>Pay</button>
                 @endif
             </div>
+            <div id="status"></div>
             </div>
         </div>
         <div class="col-sm-4">

@@ -70,7 +70,7 @@ const initPayButton = () => {
                 $('#status').html('Payment failed')
             } else {
                 console.log('Payment successful', transactionId)
-                $('#status').html('Payment successful')
+                $('#status').html('Payment successful').attr('class', 'alert alert-success')
             }
         })
     })
