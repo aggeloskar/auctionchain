@@ -1,7 +1,7 @@
 # auctionchain
 Online auctions on blockcain
 
-##Installation
+## Installation
 1. You must have [composer](https://getcomposer.org/) installed.
 2. Clone this repository and cd to the folder created:
 'git clone https://github.com/aggeloskar/auctionchain.git'
