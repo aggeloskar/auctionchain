@@ -9,7 +9,7 @@
                     <tr>
                     <th scope="col">Title</th>
                     <th scope="col">Starting Price</th>
-                    <th scope="col">Highest Bid</th>
+                    <th scope="col">Reserve price</th>
                     <th scope="col">End Date</th>
                     <th scope="col">Status</th>
                     </tr>
@@ -19,7 +19,7 @@
                     <tr>
                     <td><a href="/items/{{$item->id}}">{{$item->title}}</a></th>
                     <td>{{ $item->starting_price . ' ' . $item->currency }}  </td>
-                    <td>{{ $item->highest_bid ? $item->highest_bid . ' ' . $item->currency : 'No bids yet' }}</td>
+                    <td>{{ $item->reserve_price }}</td>
                     <td>{{ formatDate($item->end_date)}}</td>
                     <td>{{ $item->status }}</td>
                     </tr>
