@@ -140,7 +140,12 @@ class ItemController extends Controller
         $bid = request('bid');
         $id = request('id');
         $highest_bid = Bid::where('item_id', $id)->orderBy('price','desc')->first();
-        $highest_bid = $highest_bid->price;
+        if($highest_bid == null){
+            $highest_bid = $item->starting_price;
+        }
+        else{
+            $highest_bid = $highest_bid->price;
+        }
 
         if ($bid > $highest_bid && $bid > $item->starting_price){
             Bid::create([
