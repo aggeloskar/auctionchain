@@ -9,6 +9,7 @@ Online auctions on blockcain
 3. Create an `.env` file by edditing `.env.example` where you conenct tou your database
 4. Install composer dependancies
 `composer install`
+5. `php artisan key:generate`
 5. Run the database migrations and seeds
 `php artisan migrate`
 `php artisan db:seed` (optional)
