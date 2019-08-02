@@ -46,7 +46,10 @@
                     <p>No bids yet</p>
                 @endif 
         </div>
+
         <div class="col-md-3">
+            <place-bid :itemid = "{{$item->id}}"></place-bid>
+
             <div class="alert alert-info" role="alert">
                 <strong>Time Left: </strong> 
             </div>
