@@ -15,9 +15,9 @@
           </div>
           <div class="card-body">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>Address:<span id='account'></span></li>
-              <li>Balance:</li>
-              <li>Network:</li>
+              <li>Address: <span id='account'></span></li>
+              <li>Balance: <span id='balance'></span></li>
+              <li>Network: <span id='network'></span></li>
             </ul>
           </div>
         </div>

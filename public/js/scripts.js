@@ -1,4 +1,4 @@
-App = {
+/* App = {
     loading: false,
 
     load: async () => {
@@ -22,7 +22,7 @@ App = {
                 // Acccounts now exposed
                 initPayButton();
                 web3.eth.sendTransaction({
-                    /* ... */
+                    //DO
                 });
             } catch (error) {
                 // User denied account access...
@@ -34,7 +34,7 @@ App = {
             window.web3 = new Web3(web3.currentProvider);
             // Acccounts always exposed
             web3.eth.sendTransaction({
-                /* ... */
+                //DO
             });
         }
         // Non-dapp browsers...
@@ -80,3 +80,4 @@ const initPayButton = () => {
         );
     });
 };
+ */
