@@ -53,7 +53,7 @@ App = {
     }
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     App.load();
 });
 
@@ -62,8 +62,7 @@ const initPayButton = () => {
         // paymentAddress is where funds will be send to
         const paymentAddress = "0x656dC52394ED4d43477485da903ebF866676BFA5";
         const amountEth = 0.001;
-        web3.eth.sendTransaction(
-            {
+        web3.eth.sendTransaction({
                 to: paymentAddress,
                 value: web3.toWei(amountEth, "ether")
             },
