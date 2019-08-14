@@ -23,13 +23,19 @@ if (window.ethereum) {
     console.log(
         "Non-Ethereum browser detected. You should consider trying MetaMask!"
     );
+    $('#exampleModalCenter').modal('toggle');
+
+    window.web3 = {};
+    //empty web3 object
 }
-console.log("Web3 version: " + web3.version);
+//console.log("Web3 version: " + web3.version);
+
 export default web3;
 
 async function getAccounts() {
     let account = (await web3.eth.getAccounts())[0];
     $("#account").html(account);
+    $("#ethaddress").val(account);
     let balance = await web3.eth.getBalance(account);
     let balanceEth = web3.utils.fromWei(balance, 'ether');
     balanceEth = parseFloat(balanceEth).toFixed(4);
@@ -54,6 +60,7 @@ window.Vue = require("vue");
 
 Vue.component("time-left", require("./components/TimeLeft.vue").default);
 Vue.component("place-bid", require("./components/PlaceBid.vue").default);
+Vue.component("create-auction", require("./components/CreateAuction.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

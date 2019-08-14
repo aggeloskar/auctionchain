@@ -48,9 +48,23 @@
         </div>
 
         <div class="col-md-3">
-            <place-bid :itemid = "{{$item->id}}"></place-bid>
+            @if($item->status == 'active')
+            <place-bid :itemid = "{{$item->id}}" :highestbid = "'{{$highest_bid}}'"></place-bid>
+            @elseif($item->status == 'sold')
+            <div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading">This auction has ended</h4>
+                <hr>
+                <p>The item has been sold to user {{$highest_bidder}}</p> 
+            </div>
+            @elseif($item->status == 'expired')
+            <div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading">This auction has expired</h4>
+                <hr>
+                <p>Not enough bids placed</p> 
+            </div>
+            @endif
 
-            <div class="alert alert-info" role="alert">
+            {{-- <div class="alert alert-info" role="alert">
                 <strong>Time Left: </strong> 
             </div>
 
@@ -66,7 +80,7 @@
                 @else
                     <button type="submit" class="btn btn-primary btn-block" disabled>Place bid</button>
                 @endif
-            </form>
+            </form> --}}
             @if (\Session::has('success'))
                 <br>
                 <div class="alert alert-success">

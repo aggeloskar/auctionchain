@@ -190,5 +190,9 @@ class ItemController extends Controller
         return view('payment')->with('item', $item)->with('highest_bid', $highest_bid->price)->with('seller', $seller);
         
     }
+
+    public function test(Request $request){
+        return response()->json([$request->all()]);
+    }
    }
 

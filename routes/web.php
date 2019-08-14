@@ -41,6 +41,8 @@ Route::post('newauction', 'ItemController@store');
 
 Route::post('items/placebid', 'ItemController@placebid');
 
+Route::post('/test', 'ItemController@test');
+
 Route::get('/items/{itemid}/pay', [
     'middleware' => 'CheckUser::class',
     'uses' => 'ItemController@pay'

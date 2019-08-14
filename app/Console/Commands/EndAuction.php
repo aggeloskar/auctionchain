@@ -55,6 +55,8 @@ class EndAuction extends Command
         $endedAuctions = Item::where([['end_date', $today], ['status', 'active']]);
         $endedAuctions = $endedAuctions->whereHas('bids')->get();
 
+        $endedAuctionsCount = 0;
+
         if(!$endedAuctions->isEmpty()) {
             foreach($endedAuctions as $endedAuction) {
                 $endedAuction->status = 'sold';
@@ -85,9 +87,11 @@ class EndAuction extends Command
                     $hasHighestBid = true;
                 }
 
-                echo("Ended auctions");
+                $endedAuctionsCount++;
+
                 //Mail::to(User::find($userId))->send(new AuctionEnded($userName, $auctionTitle, $latestBidPrice, $hasHighestBid));
             }
         }
+            echo "Ended " . $endedAuctionsCount . " auctions\n";
     }
 }

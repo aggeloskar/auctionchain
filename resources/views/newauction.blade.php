@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="display-4 text-center">New Auction</h1>
     <br>
-    <form method="POST" action="items">
+    <form v-on:submit.prevent="createAuction" method="POST" action="items">
         @csrf
 
         <div class="form-group row">
@@ -123,7 +123,9 @@
                 </button>
             </div>
         </div>
+        
     </form>
+    <create-auction></create-auction>
     @if (\Session::has('success'))
             <br>
             <div class="col-md-6 offset-md-4 alert alert-success">

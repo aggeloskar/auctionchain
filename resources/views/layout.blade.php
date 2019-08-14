@@ -25,9 +25,11 @@
     
     <!-- Main content -->
     <div id="app" class="container">
-    @yield('content')
+      @yield('content')
+
     </div>  
 
+    @include('modal')
     <!-- Footer -->
     @include('footer')
 
