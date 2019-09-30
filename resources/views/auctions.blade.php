@@ -18,8 +18,8 @@
                 @foreach($items as $item)
                     <tr>
                     <td><a href="/items/{{$item->id}}">{{$item->title}}</a></th>
-                    <td>{{ $item->starting_price . ' ' . $item->currency }}  </td>
-                    <td>{{ $item->reserve_price }}</td>
+                    <td>{{ rtrim(rtrim($item->starting_price, '0'), '.') . ' ' . $item->currency }}  </td>
+                    <td>{{ rtrim(rtrim($item->reserve_price, '0'), '.') . ' ' . $item->currency }}  </td>
                     <td>{{ formatDate($item->end_date)}}</td>
                     <td>{{ $item->status }}</td>
                     </tr>

@@ -71,6 +71,8 @@ class ItemController extends Controller
         $item->currency = request('currency');
         $item->reserve_price = request('reservePrice');
         $item->end_date = $formattedEndDate;
+        $item->seller_address = request('sellerAddress');
+        $item->contract_address = request('contractAddress');
         //$item->seller = Auth::user()->name;
         $item->save();
         return back()->with('success', 'You have created a new auction!'); ;
@@ -89,7 +91,7 @@ class ItemController extends Controller
         if ($highest_bid){
             $highest_bidder = User::find($highest_bid->user_id);
             $highest_bidder = $highest_bidder->name;
-            $highest_bid = $highest_bid->price . ' ' . $item->currency;
+            $highest_bid = $highest_bid->price;
         }
         else{
             $highest_bidder = "No bids yet";
@@ -147,16 +149,16 @@ class ItemController extends Controller
             $highest_bid = $highest_bid->price;
         }
 
-        if ($bid > $highest_bid && $bid > $item->starting_price){
-            Bid::create([
-                'user_id' => Auth::id(),
-                'item_id' => $request->id,
-                'price' => $request->bid,
-            ]);
-            return back()->with('success', 'Bid placed successfully!');
+        if ($bid < $highest_bid && $bid < $item->starting_price){
+            return back()->with('fail', 'Select different amount'); 
         }
         else {
-            return back()->with('fail', 'Select different amount'); 
+            Bid::create([
+                'user_id' => Auth::id(),
+                'item_id' => $id,
+                'price' => $bid,
+            ]);
+            return back()->with('success', 'Bid placed successfully!');
         } 
     
         

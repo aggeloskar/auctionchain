@@ -42,6 +42,10 @@ Route::post('newauction', 'ItemController@store');
 Route::post('items/placebid', 'ItemController@placebid');
 
 Route::post('/test', 'ItemController@test');
+Route::get('/end', function () {
+    Artisan::call('auction:end');
+    return back();
+});
 
 Route::get('/items/{itemid}/pay', [
     'middleware' => 'CheckUser::class',

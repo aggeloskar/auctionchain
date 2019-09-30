@@ -17,7 +17,7 @@ class CreateBidsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->integer('item_id')->unsigned();
-            $table->integer('price')->unsigned();
+            $table->decimal0('price',25,18)->unsigned();
             $table->timestamps();
 
         });

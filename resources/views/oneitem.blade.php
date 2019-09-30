@@ -14,10 +14,13 @@
         <div class="col-md-6">
             <dl class="row">
                 <dt class="col-sm-4">Starting Price</dt>
-                <dd class="col-sm-8">{{$item->starting_price . ' ' . $item->currency}} </dd>
+                <dd class="col-sm-8">{{rtrim(rtrim($item->starting_price, '0'), '.') . ' ' . $item->currency}} </dd>
+
+                <dt class="col-sm-4">Reserve Price</dt>
+                <dd class="col-sm-8">{{rtrim(rtrim($item->reserve_price, '0'), '.') . ' ' . $item->currency}} </dd>
 
                 <dt class="col-sm-4">Highest Bid</dt>
-                <dd class="col-sm-8"> {{ $highest_bid }} </dd>
+                <dd class="col-sm-8"> {{ rtrim(rtrim($highest_bid, '0'), '.') . ' ' . $item->currency }} </dd>
 
                 <dt class="col-sm-4">Highest Bidder</dt>
                 <dd class="col-sm-8"> {{ $highest_bidder }} </dd>
@@ -38,7 +41,7 @@
                     <ol>
                         @foreach($item->bids as $bid)
                             <li class="{{ $bid->user_id == Auth::id() ? 'you' : '' }}">
-                                € {{ ($bid->price) }}, {{ $bid->user->name }}, {{ formatDate($bid->created_at) }}
+                                Ξ {{ rtrim(rtrim($bid->price, '0'), '.') }}, {{ $bid->user->name }}, {{ formatDate($bid->created_at) }}
                             </li>
                         @endforeach
                     </ol>
@@ -49,7 +52,7 @@
 
         <div class="col-md-3">
             @if($item->status == 'active')
-            <place-bid :itemid = "{{$item->id}}" :highestbid = "'{{$highest_bid}}'"></place-bid>
+            <place-bid :itemid = "{{$item->id}}" :highestbid = "'{{$highest_bid}}'" :contractaddress = "'{{$item->contract_address}}'"></place-bid>
             @elseif($item->status == 'sold')
             <div class="alert alert-primary" role="alert">
                 <h4 class="alert-heading">This auction has ended</h4>

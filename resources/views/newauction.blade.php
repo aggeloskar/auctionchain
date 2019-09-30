@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="display-4 text-center">New Auction</h1>
     <br>
-    <form v-on:submit.prevent="createAuction" method="POST" action="items">
+    {{-- <form v-on:submit.prevent="createAuction" method="POST" action="items">
         @csrf
 
         <div class="form-group row">
@@ -61,7 +61,7 @@
                 <select class="form-control" id="currency" name="currency" required>
                     <option selected disabled value="">Select Currency</option>
                     <option value="ETH">ETH</option>
-                    <option value="EUR">EUR</option>
+                    <option disabled value="EUR">EUR</option>
                 </select>
             </div>
         </div>
@@ -83,7 +83,7 @@
         <div class="form-group row">
             <label for="endDate" class="col-md-4 col-form-label text-md-right">End Date</label>
             
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <input id="endDate" type="text" class="form-control{{ $errors->has('endDate') ? ' is-invalid' : '' }}" name="endDate" maxlength="8" placeholder="DD/MM/YY" required>
 
                 @if ($errors->has('endDate'))
@@ -92,20 +92,13 @@
                     </span>
                 @endif
             </div>
-            <div class="col-md-3">
-                <select class="form-control" id="type" name="type">
-                    <option selected disabled value="">Auction type</option>
-                    <option value="ETH">Ethereum only</option>
-                    <option value="EUR">Credit card only</option>
-                    <option value="Other" disabled>Other</option>
-                </select>
-            </div>
+    
         </div>
         <div class="form-group row">
             <label for="ethaddress" class="col-md-4 col-form-label text-md-right">ETH address</label>
             
             <div class="col-md-6">
-                <input id="ethaddress" type="text" class="form-control{{ $errors->has('ethaddress') ? ' is-invalid' : '' }}" name="ethaddress">
+                <input id="ethaddress" type="text" class="form-control{{ $errors->has('ethaddress') ? ' is-invalid' : '' }}" name="ethaddress" disabled>
 
                 @if ($errors->has('ethaddress'))
                     <span class="invalid-feedback" role="alert">
@@ -123,9 +116,9 @@
                 </button>
             </div>
         </div>
-        
-    </form>
+    </form> --}}
     <create-auction></create-auction>
+
     @if (\Session::has('success'))
             <br>
             <div class="col-md-6 offset-md-4 alert alert-success">

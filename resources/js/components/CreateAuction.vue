@@ -1,153 +1,145 @@
 <template>
   <div>
-    <button v-on:click="createAuction">Vue button</button>
+    <form v-on:submit.prevent="createAuction" method="POST" action="items" id="createauction">
+      <div class="form-group row">
+        <label for="title" class="col-md-4 col-form-label text-md-right">Item title</label>
+
+        <div class="col-md-6">
+          <input id="title" type="text" class="form-control" name="title" value required autofocus />
+          <span class="invalid-feedback" role="alert">
+            <strong></strong>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="description" class="col-md-4 col-form-label text-md-right">Item Description</label>
+
+        <div class="col-md-6">
+          <input id="description" type="text" class="form-control" name="description" required />
+          <span class="invalid-feedback" role="alert">
+            <strong></strong>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="itemPhoto" class="col-md-4 col-form-label text-md-right">Item Photo</label>
+
+        <div class="col-md-6">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="itemPhoto" />
+            <label class="custom-file-label" for="itemPhoto">Choose file</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="starting_price" class="col-md-4 col-form-label text-md-right">Starting Price</label>
+
+        <div class="col-md-3">
+          <input
+            id="starting_price"
+            type="text"
+            class="form-control"
+            name="starting_price"
+            required
+          />
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" id="currency" name="currency" required>
+            <option value="ETH">ETH</option>
+            <option disabled value="EUR">EUR</option>
+            <option disabled value="USD">USD</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="reservePrice" class="col-md-4 col-form-label text-md-right">Reserve Price</label>
+
+        <div class="col-md-6">
+          <input id="reservePrice" type="text" class="form-control" name="reservePrice" required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="endDate" class="col-md-4 col-form-label text-md-right">End Date</label>
+
+        <div class="col-md-6">
+          <input
+            id="endDate"
+            type="text"
+            class="form-control"
+            name="endDate"
+            maxlength="8"
+            v-model="endDate"
+            placeholder="DD/MM/YY"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="sellerAddress" class="col-md-4 col-form-label text-md-right">ETH address</label>
+
+        <div class="col-md-6">
+          <input id="ethaddress" type="text" class="form-control" name="sellerAddress" readonly />
+        </div>
+      </div>
+
+      <div class="form-group row mb-0">
+        <div class="col-md-8 offset-md-4">
+          <button class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+
+      <input type="hidden" id="contractAddress" name="contractAddress" />
+      <input type="hidden" name="_token" :value="csrf" />
+    </form>
     <div class="loader"></div>
   </div>
 </template>
 
 <script>
+import contractABI from "../contractABI";
 export default {
+  data() {
+    return {
+      endDate: null,
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content")
+    };
+  },
   methods: {
     createAuction: async function() {
       $("body").toggleClass("loading");
-      console.log("button pressed");
-      var contract = new web3.eth.Contract([
-        {
-          constant: false,
-          inputs: [],
-          name: "finalizeAuction",
-          outputs: [],
-          payable: false,
-          stateMutability: "nonpayable",
-          type: "function"
-        },
-        {
-          constant: false,
-          inputs: [],
-          name: "placeBid",
-          outputs: [
-            {
-              name: "",
-              type: "bool"
-            }
-          ],
-          payable: true,
-          stateMutability: "payable",
-          type: "function"
-        },
-        {
-          inputs: [
-            {
-              name: "_owner",
-              type: "address"
-            },
-            {
-              name: "_title",
-              type: "string"
-            },
-            {
-              name: "_startPrice",
-              type: "uint256"
-            },
-            {
-              name: "_description",
-              type: "string"
-            }
-          ],
-          payable: false,
-          stateMutability: "nonpayable",
-          type: "constructor"
-        },
-        {
-          constant: true,
-          inputs: [],
-          name: "auctionState",
-          outputs: [
-            {
-              name: "",
-              type: "uint8"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        },
-        {
-          constant: true,
-          inputs: [
-            {
-              name: "",
-              type: "address"
-            }
-          ],
-          name: "bids",
-          outputs: [
-            {
-              name: "",
-              type: "uint256"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        },
-        {
-          constant: true,
-          inputs: [],
-          name: "highestBidder",
-          outputs: [
-            {
-              name: "",
-              type: "address"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        },
-        {
-          constant: true,
-          inputs: [],
-          name: "highestPrice",
-          outputs: [
-            {
-              name: "",
-              type: "uint256"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        },
-        {
-          constant: true,
-          inputs: [],
-          name: "returnContents",
-          outputs: [
-            {
-              name: "",
-              type: "string"
-            },
-            {
-              name: "",
-              type: "uint256"
-            },
-            {
-              name: "",
-              type: "string"
-            },
-            {
-              name: "",
-              type: "uint8"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        }
-      ]);
+      console.log(this.endDate);
+      //Convert endDate
+      var partDate = this.endDate.split("/");
+      partDate[2] = "20" + partDate[2];
+      partDate[1] = partDate[1] - 1;
+      var endingDate =
+        new Date(partDate[2], partDate[1], partDate[0]).getTime() / 1000;
+      console.log(endingDate);
+      var startingDate = parseInt(new Date().getTime() / 1000);
+      var duration = endingDate - startingDate;
+      console.log(duration);
+      if (duration < 0) {
+        alert("Select a differnt ending date");
+        $("body").toggleClass("loading");
+        return;
+      }
+      var currentBlockNumber = await web3.eth.getBlockNumber();
+      console.log(currentBlockNumber);
 
-      let owner = "0x427746F4B92a42d6b3b6d13cE985cB63cAD81a0c";
+      var blockDuration = 13;
+      var endingBlockNumber = currentBlockNumber + duration / blockDuration;
+      console.log(endingBlockNumber);
+
+      var contract = new web3.eth.Contract(contractABI);
+
+      let owner = (await web3.eth.getAccounts())[0];
       let title = "title";
       let startprice = 100;
       let description = "description";
@@ -157,7 +149,7 @@ export default {
           event.returnValue = `Are you sure you want to leave?`;
         });
       }
-
+      //CHANGE DATA BYTECODE ON CONTRACT UPDATE!!!!!!!!!!!!!!!!!!!!!!!!!!
       contract
         .deploy({
           data:
@@ -177,6 +169,8 @@ export default {
         )
         .then(function(newContractInstance) {
           console.log(newContractInstance.options.address); // instance with the new contract address
+          $("#contractAddress").val(newContractInstance.options.address);
+          document.getElementById("createauction").submit();
           $("body").toggleClass("loading");
         });
     }
