@@ -193,8 +193,12 @@ class ItemController extends Controller
         
     }
 
-    public function test(Request $request){
-        return response()->json([$request->all()]);
+    public function end(Request $request){
+        $item = Item::find($request->id);
+        $item->status = 'sold';
+        $item->save();
+
+    	return response()->json([$request->id]);
     }
    }
 

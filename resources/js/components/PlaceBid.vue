@@ -93,175 +93,26 @@ export default {
         .on("confirmation", function(confirmationNumber, receipt) {
           console.log(confirmationNumber);
           console.log(receipt);
+
           //axios.get("/end").then(alert("ENDED"));
           //This ^^ changes all active auctions to ended. TODO: change only this auction to ended.
         });
+      axios
+        .post("/end", {
+          id: this.itemid,
+          status: "ended"
+        })
+        .then(function(response) {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error.message);
+        })
+        .then(alert("ended"));
     }
   },
   mounted: async function() {
     console.log("------------mounted--------------");
-    /* console.log(this.contractaddress);
-    var contractAddress = this.contractaddress;
-    var contract = new web3.eth.Contract(
-      [
-        {
-          constant: false,
-          inputs: [],
-          name: "finalizeAuction",
-          outputs: [],
-          payable: false,
-          stateMutability: "nonpayable",
-          type: "function"
-        },
-        {
-          constant: false,
-          inputs: [],
-          name: "placeBid",
-          outputs: [
-            {
-              name: "",
-              type: "bool"
-            }
-          ],
-          payable: true,
-          stateMutability: "payable",
-          type: "function"
-        },
-        {
-          inputs: [
-            {
-              name: "_owner",
-              type: "address"
-            },
-            {
-              name: "_title",
-              type: "string"
-            },
-            {
-              name: "_startPrice",
-              type: "uint256"
-            },
-            {
-              name: "_description",
-              type: "string"
-            }
-          ],
-          payable: false,
-          stateMutability: "nonpayable",
-          type: "constructor"
-        },
-        {
-          constant: true,
-          inputs: [],
-          name: "auctionState",
-          outputs: [
-            {
-              name: "",
-              type: "uint8"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        },
-        {
-          constant: true,
-          inputs: [
-            {
-              name: "",
-              type: "address"
-            }
-          ],
-          name: "bids",
-          outputs: [
-            {
-              name: "",
-              type: "uint256"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        },
-        {
-          constant: true,
-          inputs: [],
-          name: "highestBidder",
-          outputs: [
-            {
-              name: "",
-              type: "address"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        },
-        {
-          constant: true,
-          inputs: [],
-          name: "highestPrice",
-          outputs: [
-            {
-              name: "",
-              type: "uint256"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        },
-        {
-          constant: true,
-          inputs: [],
-          name: "returnContents",
-          outputs: [
-            {
-              name: "",
-              type: "string"
-            },
-            {
-              name: "",
-              type: "uint256"
-            },
-            {
-              name: "",
-              type: "string"
-            },
-            {
-              name: "",
-              type: "uint8"
-            }
-          ],
-          payable: false,
-          stateMutability: "view",
-          type: "function"
-        }
-      ],
-      contractAddress
-    );
-    console.log(contract);
-    var content = await contract.methods.returnContents().call();
-    console.log(content);
-    var highestPrice = await contract.methods.highestPrice().call();
-    console.log(highestPrice);
-    console.log(this.highestbid); */
-    /* Check if blockchain highest price is the same as database highestbid.
-     ** If not, uses axios to update database values of highest bid and highest bidder.
-     */
-    /* if (highestPrice !== this.highestbid) {
-      axios
-        .post("/test", {
-          name: "TEst name",
-          description: "test descr"
-        })
-        .then(function(response) {
-          console.log(response.data);
-          //refresh page
-        });
-    }
-
-    console.log("---------------end mounted----------------------"); */
   }
 };
 </script>
