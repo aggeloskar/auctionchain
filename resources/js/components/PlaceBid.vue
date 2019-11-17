@@ -93,22 +93,19 @@ export default {
         .on("confirmation", function(confirmationNumber, receipt) {
           console.log(confirmationNumber);
           console.log(receipt);
-
-          //axios.get("/end").then(alert("ENDED"));
-          //This ^^ changes all active auctions to ended. TODO: change only this auction to ended.
+          axios
+            .post("/end", {
+              id: this.itemid,
+              status: "ended"
+            })
+            .then(function(response) {
+              console.log(response.data);
+            })
+            .catch(error => {
+              console.log(error.message);
+            })
+            .then(console.log("ended"));
         });
-      axios
-        .post("/end", {
-          id: this.itemid,
-          status: "ended"
-        })
-        .then(function(response) {
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.log(error.message);
-        })
-        .then(alert("ended"));
     }
   },
   mounted: async function() {

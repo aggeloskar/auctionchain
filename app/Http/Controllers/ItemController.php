@@ -73,7 +73,7 @@ class ItemController extends Controller
         $item->end_date = $formattedEndDate;
         $item->seller_address = request('sellerAddress');
         $item->contract_address = request('contractAddress');
-        //$item->seller = Auth::user()->name;
+
         $item->save();
         return back()->with('success', 'You have created a new auction!'); ;
     }
